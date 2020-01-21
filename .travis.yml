@@ -1,20 +1,19 @@
 language: node_js
-cache:
-  directories:
-    - ~/.npm
 notifications:
   email: false
 node_js:
   - "10"
-  - "11"
   - "12"
   - "13"
-install:
-    - npm install
-    - npm run build
-after_success:
-  - npm run coveralls
-  - npm run semantic-release
+before_script:
+  - "npm run build"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+jobs:
+  include:
+    - stage: release
+      node_js: lts/*
+      script:
+        - cat coverage/lcov.info | npx coveralls
+        - npx semantic-release
