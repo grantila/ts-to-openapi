@@ -1,0 +1,3 @@
+#!./node_modules/.bin/ts-node
+
+require( "./lib/bin/ts-to-openapi" );

@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"declaration": true,
+		"lib": [ "es2015", "es2017" ],
+		"types": [
+			"node",
+			"jest"
+		],
+		"outDir": "dist",
+		"target": "ES6",
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"pretty": true,
+		"strict": true,
+		"alwaysStrict": true,
+	},
+	"include": [
+		"lib"
+	]
+}

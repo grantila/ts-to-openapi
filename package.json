@@ -1,0 +1,62 @@
+{
+  "name": "ts-to-openapi",
+  "description": "Convert TypeScript types to OpenAPI schema components",
+  "license": "MIT",
+  "version": "0.0.0-development",
+  "author": "Gustaf Räntilä <g.rantila@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grantila/ts-to-openapi"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "bin": "./cli",
+  "scripts": {
+    "build": "rimraf dist && tsc -p .",
+    "test": "jest --coverage",
+    "buildtest": "npm run build && npm run test",
+    "coveralls": "cat coverage/lcov.info | coveralls",
+    "semantic-release": "semantic-release",
+    "cz": "git-cz"
+  },
+  "pre-commit": [
+    "build",
+    "test"
+  ],
+  "keywords": [
+    "ts",
+    "TypeScript",
+    "OpenAPI",
+    "swagger",
+    "json",
+    "schema"
+  ],
+  "dependencies": {
+    "js-yaml": "^3.13.1",
+    "oppa": "^0.0.6",
+    "parse-json": "^5.0.0",
+    "ts-json-schema-generator": "^0.58.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/js-yaml": "^3.12.1",
+    "commitizen": "^4.0.3",
+    "coveralls": "^3.0.9",
+    "cz-conventional-changelog": "^3.0.2",
+    "jest": "^24.9.0",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^3.0.0",
+    "semantic-release": "^16.0.2",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
