@@ -15,8 +15,8 @@
   "main": "./dist/index.js",
   "bin": "./cli",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.prod.json",
-    "test": "jest --coverage",
+    "build": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/tsc -p tsconfig.prod.json",
+    "test": "./node_modules/.bin/jest",
     "buildtest": "npm run build && npm run test",
     "cz": "git-cz"
   },
@@ -35,7 +35,6 @@
   "dependencies": {
     "js-yaml": "^3.13.1",
     "oppa": "^0.0.6",
-    "package.json": "^2.0.1",
     "parse-json": "^5.0.0",
     "ts-json-schema-generator": "^0.58.1"
   },
@@ -45,6 +44,7 @@
     "@types/node": "^13.1.8",
     "@types/parse-json": "^4.0.0",
     "commitizen": "^4.0.3",
+    "coveralls": "^3.0.9",
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",
     "pre-commit": "^1.2.2",
