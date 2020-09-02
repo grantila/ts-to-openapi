@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`convert simple string type 1`] = `
+"components:
+  schemas:
+    Foo:
+      type: string
+"
+`;
+
+exports[`convert split multiple types into anyOf recursively 1`] = `
+"components:
+  schemas:
+    Foo:
+      anyOf:
+        - type: number
+        - additionalProperties: false
+          properties:
+            bar:
+              anyOf:
+                - items:
+                    type: string
+                  type: array
+                - additionalProperties: false
+                  properties:
+                    baz:
+                      type: number
+                  type: object
+                - additionalProperties: false
+                  properties:
+                    baz:
+                      type: boolean
+                  required:
+                    - baz
+                  type: object
+            foo:
+              anyOf:
+                - type: string
+                - type: boolean
+          required:
+            - foo
+            - bar
+          type: object
+"
+`;
+
+exports[`convert split multiple types into anyOf single top-level 1`] = `
+"components:
+  schemas:
+    Foo:
+      anyOf:
+        - type: string
+        - type: number
+"
+`;

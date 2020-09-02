@@ -80,3 +80,19 @@ export function stripUndefined< T extends { } >( t: T ): T
 
 	return ret;
 }
+
+export function extractDefinedProperties< T, K extends keyof T >(
+	obj: T,
+	keys: Array< K >
+): Pick< T, K >
+{
+	const ret: Pick< T, K > = { } as any;
+
+	keys.forEach( key =>
+	{
+		if ( obj[ key ] !== undefined )
+			ret[ key ] = obj[ key ];
+	} );
+
+	return ret;
+}

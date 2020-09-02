@@ -2,7 +2,7 @@ import { createGenerator } from "ts-json-schema-generator"
 
 import { Config } from "./types"
 import { getConfig } from "./config"
-import { overwriteObject } from "./utils"
+import { extractDefinedProperties, overwriteObject } from "./utils"
 import { toYAML } from "./yaml"
 import { convertNullToNullable } from "./json-schema"
 
@@ -60,8 +60,90 @@ function modifySchema( schema: SchemaType, config: Config )
 			} );
 	}
 
+	// Split types into separate anyOf's
+	const recurseSplitTypes = ( obj: any ) =>
+	{
+		if ( !obj?.type && !obj.anyOf && !obj.allOf && !obj.oneOf )
+			return;
+
+		const { type } = obj;
+
+		const isMaybeObject = Array.isArray( type )
+			? type.includes( "object" ) : type === "object";
+		const isMaybeArray = Array.isArray( type )
+			? type.includes( "array" ) : type === "array";
+
+		if ( isMaybeObject )
+		{
+			if ( typeof obj.properties === "object" )
+				Object.values( obj.properties )
+					.forEach( prop => recurseSplitTypes( prop ) );
+			if ( typeof obj.additionalProperties === "object" )
+				Object.values( obj.additionalProperties )
+					.forEach( prop => recurseSplitTypes( prop ) );
+			if ( typeof obj.patternProperties === "object" )
+				Object.values( obj.patternProperties )
+					.forEach( prop => recurseSplitTypes( prop ) );
+		}
+		if ( isMaybeArray )
+		{
+			if ( typeof obj.items === "object" )
+			{
+				if ( Array.isArray( obj.items ) )
+					( obj.items as Array< any > )
+						.forEach( item => recurseSplitTypes( obj.items ) );
+				else
+					recurseSplitTypes( obj.items );
+			}
+			if ( typeof obj.contains === "object" )
+				recurseSplitTypes( obj.contains );
+			if ( typeof obj.additionalItems === "object" )
+				recurseSplitTypes( obj.additionalItems );
+		}
+
+		if ( Array.isArray( obj.anyOf ) )
+			obj.anyOf.forEach( ( item: any ) => recurseSplitTypes( item ) );
+		if ( Array.isArray( obj.allOf ) )
+			obj.allOf.forEach( ( item: any ) => recurseSplitTypes( item ) );
+		if ( Array.isArray( obj.oneOf ) )
+			obj.oneOf.forEach( ( item: any ) => recurseSplitTypes( item ) );
+
+		if ( !Array.isArray( type ) )
+			return;
+
+		if ( type.length === 1 )
+		{
+			obj.type = type[ 0 ];
+		}
+		else
+		{
+			// TODO: Potentially extract all type-specific properties.
+			//       Not needed now, since they probably aren't there, if
+			//       the schema is generated from TypeScript...
+			const objectProperties = extractDefinedProperties( obj, [
+				'properties',
+				'additionalProperties',
+				'patternProperties',
+				'required',
+			] );
+			const arrayProperties = extractDefinedProperties( obj, [
+				'items',
+				'contains',
+				'additionalItems',
+			] );
+
+			obj.anyOf = ( type as Array< string > ).map( type => ( {
+				type,
+				...( type === "object" ? objectProperties : { } ),
+				...( type === "array" ? arrayProperties : { } ),
+			} ) );
+			delete obj.type;
+		}
+	};
+	Object.values( definitions ).forEach( def => recurseSplitTypes( def ) );
+
 	// Expand types recursively
-	const recurse = ( obj: any ) =>
+	const recurseExpandTypes = ( obj: any ) =>
 	{
 		if ( typeof obj !== "object" )
 			return;
@@ -75,10 +157,10 @@ function modifySchema( schema: SchemaType, config: Config )
 				if ( Array.isArray( value ) )
 					value.forEach( ( value: any ) =>
 					{
-						recurse( value );
+						recurseExpandTypes( value );
 					} );
 				else
-					recurse( value );
+					recurseExpandTypes( value );
 			}
 
 			if ( key === "$ref" && typeof value === "string" )
@@ -102,7 +184,7 @@ function modifySchema( schema: SchemaType, config: Config )
 			delete obj[ key ];
 		} );
 	};
-	recurse( definitions );
+	recurseExpandTypes( definitions );
 
 	expandableTypes.forEach( type =>
 	{
