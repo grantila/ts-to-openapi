@@ -1,3 +1,8 @@
+[![npm version][npm-image]][npm-url]
+[![downloads][downloads-image]][npm-url]
+[![build status][build-image]][build-url]
+[![coverage status][coverage-image]][coverage-url]
+
 # ts-to-openapi
 
 This package converts TypeScript interfaces and types to OpenAPI/Swagger YAML.
@@ -38,3 +43,12 @@ $> ts-to-openapi -f my-file.ts -t MyTypeA,MyTypeB
       --remove-props <remove-props>                       Additional properties to remove from types
       -t, --types <types>                                 The types to convert to OpenAPI
 ```
+
+
+[npm-image]: https://img.shields.io/npm/v/ts-to-openapi.svg
+[npm-url]: https://npmjs.org/package/ts-to-openapi
+[downloads-image]: https://img.shields.io/npm/dm/ts-to-openapi.svg
+[build-image]: https://img.shields.io/github/workflow/status/grantila/ts-to-openapi/Master.svg
+[build-url]: https://github.com/grantila/ts-to-openapi/actions?query=workflow%3AMaster
+[coverage-image]: https://coveralls.io/repos/github/grantila/ts-to-openapi/badge.svg?branch=master
+[coverage-url]: https://coveralls.io/github/grantila/ts-to-openapi?branch=master
