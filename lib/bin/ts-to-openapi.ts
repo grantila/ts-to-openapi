@@ -92,6 +92,7 @@ const parsed = oppa( {
 	name: "types",
 	alias: "t",
 	type: "string",
+	default: "*",
 	description: "The types to convert to OpenAPI",
 } )
 .parse( );
