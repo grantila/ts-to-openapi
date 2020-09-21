@@ -41,14 +41,17 @@ export function overwriteObject(
 export function findFile( leafDir: string, basename: string )
 {
 	let dir = leafDir;
+	let prevDir;
+
 	do
 	{
 		const filename = path.join( dir, basename );
 		if ( fs.existsSync( filename ) )
 			return filename;
+		prevDir = dir;
 		dir = path.dirname( dir );
 	}
-	while ( dir !== "/" );
+	while ( dir !== prevDir );
 
 	return null;
 }
