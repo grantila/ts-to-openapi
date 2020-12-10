@@ -98,7 +98,14 @@ const parsed = oppa( {
 .add( {
 	name: "json-format",
 	type: "boolean",
+	default: false,
 	description: "Leave output as JSON",
+} )
+.add( {
+	name: "model-version",
+	type: "string",
+	default: "1.0.0",
+	description: "Specify a version for the model being generated",
 } )
 .parse( );
 
@@ -120,6 +127,7 @@ const {
 	"remove-props": removePropsCommas,
 	types: typesCommas,
 	"json-format": jsonFormat,
+	"model-version": modelVersion,
 } = args;
 
 const skipTypeCheck = typeCheck == null ? undefined : !typeCheck;
@@ -154,6 +162,7 @@ const config: Partial< Config > = stripUndefined( {
 	removeProps,
 	types,
 	jsonFormat,
+	modelVersion,
 } );
 
 try

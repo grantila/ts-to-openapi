@@ -13,4 +13,5 @@ export interface Config
 	removeProps: Array< string >;
 	types: Array< string >;
 	jsonFormat: boolean;
+	modelVersion: string
 }

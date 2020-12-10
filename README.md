@@ -42,7 +42,8 @@ $> ts-to-openapi -f my-file.ts -t MyTypeA,MyTypeB
       --expand-types <expand-types>                       Additional types to expand rather than include as their own types
       --remove-props <remove-props>                       Additional properties to remove from types
       -t, --types <types>                                 The types to convert to OpenAPI
-      --json-format                                        Leave output as JSON
+      --json-format                                       Leave output as JSON
+      --model-version <semantic-version>                  Specify a semantic version for the model
 ```
 
 

@@ -207,11 +207,22 @@ export function convert( opts: Partial< Config > )
 		definitions.push( schema.definitions );
 	});
 
-	const full = {
+	let full = {
 		components: {
 			schemas: Object.assign( { }, ...definitions )
 		}
 	};
+
+	if (config.jsonFormat){
+		full = Object.assign({
+			openapi: "3.0.0",
+			info: {
+				version: config.modelVersion,
+				title: config.types[0],
+			},
+			paths: {},
+		}, full)
+	}
 
 	return config.jsonFormat
 		? JSON.stringify(full, null, 2) 
