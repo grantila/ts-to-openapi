@@ -18,6 +18,7 @@ export const defaultConfig: Required< Config > = {
 	expandTypes: [ ],
 	removeProps: [ ],
 	types: [ ],
+	jsonFormat: false
 };
 
 export interface GetConfigResult

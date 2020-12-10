@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`convert simple string type (JSON) 1`] = `
+"{
+  \\"components\\": {
+    \\"schemas\\": {
+      \\"Foo\\": {
+        \\"type\\": \\"string\\"
+      }
+    }
+  }
+}"
+`;
+
 exports[`convert simple string type 1`] = `
 "components:
   schemas:

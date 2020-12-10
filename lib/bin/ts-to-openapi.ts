@@ -95,6 +95,11 @@ const parsed = oppa( {
 	default: "*",
 	description: "The types to convert to OpenAPI",
 } )
+.add( {
+	name: "json-format",
+	type: "boolean",
+	description: "Leave output as JSON",
+} )
 .parse( );
 
 const split = ( value: string ) =>
@@ -114,6 +119,7 @@ const {
 	"expand-types": expandTypesCommas,
 	"remove-props": removePropsCommas,
 	types: typesCommas,
+	"json-format": jsonFormat,
 } = args;
 
 const skipTypeCheck = typeCheck == null ? undefined : !typeCheck;
@@ -147,6 +153,7 @@ const config: Partial< Config > = stripUndefined( {
 	expandTypes,
 	removeProps,
 	types,
+	jsonFormat,
 } );
 
 try

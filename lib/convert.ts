@@ -213,5 +213,7 @@ export function convert( opts: Partial< Config > )
 		}
 	};
 
-	return toYAML( full, config );
+	return config.jsonFormat
+		? JSON.stringify(full, null, 2) 
+		: toYAML(full, config)
 }
