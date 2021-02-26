@@ -5,6 +5,8 @@
 
 # ts-to-openapi
 
+*This package is not heavily maintained, and will be replaced with [typeconv](https://github.com/grantila/typeconv/)*
+
 This package converts TypeScript interfaces and types to OpenAPI/Swagger YAML.
 
 It can detect what looks like GraphQL-to-TypeScript converted files, and clean them up (e.g. auto-expanding `Scalar` and `Maybe`).
