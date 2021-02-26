@@ -95,6 +95,18 @@ const parsed = oppa( {
 	default: "*",
 	description: "The types to convert to OpenAPI",
 } )
+.add( {
+	name: "json-format",
+	type: "boolean",
+	default: false,
+	description: "Leave output as JSON",
+} )
+.add( {
+	name: "model-version",
+	type: "string",
+	default: "1.0.0",
+	description: "Specify a version for the model being generated",
+} )
 .parse( );
 
 const split = ( value: string ) =>
@@ -114,6 +126,8 @@ const {
 	"expand-types": expandTypesCommas,
 	"remove-props": removePropsCommas,
 	types: typesCommas,
+	"json-format": jsonFormat,
+	"model-version": modelVersion,
 } = args;
 
 const skipTypeCheck = typeCheck == null ? undefined : !typeCheck;
@@ -147,6 +161,8 @@ const config: Partial< Config > = stripUndefined( {
 	expandTypes,
 	removeProps,
 	types,
+	jsonFormat,
+	modelVersion,
 } );
 
 try
