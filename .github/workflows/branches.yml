@@ -4,7 +4,7 @@
 name: Branches
 
 on:
-  pull_request: branches: [ master ]
+  pull_request: branches: [ '*' ]
   push:
     branches-ignore:
       - master
