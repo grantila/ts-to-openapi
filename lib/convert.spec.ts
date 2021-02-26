@@ -2,10 +2,10 @@ import { write } from "tempy"
 
 import { convert } from "./convert"
 
-async function convertBlob( tsInterface: string, tsName: string )
+async function convertBlob( tsInterface: string, tsName: string, jsonFormat?: boolean )
 {
 	const path = await write( tsInterface, { extension: 'ts' } );
-	return convert( { path, asComment: false, types: [ tsName ] } );
+	return convert( { path, asComment: false, types: [ tsName ], jsonFormat } );
 }
 
 describe( "convert", ( ) =>
@@ -17,6 +17,16 @@ describe( "convert", ( ) =>
 			"Foo"
 		);
 		expect( yaml ).toMatchSnapshot( );
+	} );
+
+	it( "simple string type (JSON)", async ( ) =>
+	{
+		const json = await convertBlob(
+			"export type Foo = string;",
+			"Foo",
+			true
+		);
+		expect( json ).toMatchSnapshot( );
 	} );
 
 	// Fixes #2
