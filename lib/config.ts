@@ -18,6 +18,8 @@ export const defaultConfig: Required< Config > = {
 	expandTypes: [ ],
 	removeProps: [ ],
 	types: [ ],
+	jsonFormat: false,
+	modelVersion: "1.0.0",
 };
 
 export interface GetConfigResult
