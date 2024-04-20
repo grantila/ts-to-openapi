@@ -36,7 +36,7 @@
     "js-yaml": "^3.14.0",
     "oppa": "^0.2.0",
     "parse-json": "^5.1.0",
-    "ts-json-schema-generator": "^0.73.0"
+    "ts-json-schema-generator": "^2.1.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.13",
