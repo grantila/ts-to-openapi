@@ -33,7 +33,7 @@
     "schema"
   ],
   "dependencies": {
-    "js-yaml": "^3.14.0",
+    "js-yaml": "^4.1.1",
     "oppa": "^0.2.0",
     "parse-json": "^5.1.0",
     "ts-json-schema-generator": "^0.73.0"
